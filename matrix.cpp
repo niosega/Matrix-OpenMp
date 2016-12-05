@@ -8,7 +8,6 @@ Matrix::Matrix(int n, int m)
 {
 	this->n = n;
 	this->m = m;
-	omp_set_num_threads(thread);
 	
 	this->values = new int*[n];
 	#pragma omp parallel for num_threads(thread) num_threads(thread)

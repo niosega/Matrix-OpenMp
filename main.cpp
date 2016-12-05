@@ -3,6 +3,7 @@
 //~ #include "timer.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include "omp.h"
 
 using namespace std;
 
@@ -20,7 +21,8 @@ int main(int argc, char* argv[])
 	int m = atoi(argv[2]);
 	thread = atoi(argv[3]);
 	int log = atoi(argv[4]);
-	
+	omp_set_num_threads(thread);
+	cout << "Number of threads : "<< thread << endl;
 	Matrix ma(n, m);
 	ma.init(2);
 	
