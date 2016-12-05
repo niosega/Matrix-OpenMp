@@ -16,7 +16,8 @@ testbench.o: testbench.cpp testbench.h
 	g++ -c testbench.cpp -o testbench.o -std=c++11 -O3
 	
 test: exec
-	./exec 10 10 1 1
+	time ./exec 1000 1000 1 0
+	time ./exec 1000 1000 4 0
 
 clean:
 	rm exec *.o
