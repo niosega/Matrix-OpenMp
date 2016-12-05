@@ -10,7 +10,7 @@ Matrix::Matrix(int n, int m)
 	this->m = m;
 	
 	this->values = new int*[n];
-	#pragma omp parallel for num_threads(thread) num_threads(thread)
+	#pragma omp parallel for num_threads(thread)
 	for(int i = 0; i<n ;i++)
 	{
 		this->values[i] = new int[m];
@@ -71,7 +71,7 @@ void Matrix::init(int val)
 unsigned long long int Matrix::sum()
 {
 	unsigned long long int sum = 0;
-#pragma omp parallel for num_threads(thread) reduction(+:sum)
+	#pragma omp parallel for num_threads(thread) reduction(+:sum)
 	for(int i = 0; i<this->n ;i++)
     {
 		for(int j = 0;j<this->m; j++)
