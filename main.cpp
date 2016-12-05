@@ -6,6 +6,8 @@
 
 using namespace std;
 
+int thread = 1;
+
 int main(int argc, char* argv[])
 {
 	if(argc != 5)
@@ -16,10 +18,10 @@ int main(int argc, char* argv[])
 	
 	int n = atoi(argv[1]);
 	int m = atoi(argv[2]);
-	int thread = atoi(argv[3]);
+	thread = atoi(argv[3]);
 	int log = atoi(argv[4]);
 	
-	Matrix ma(n, m, thread);
+	Matrix ma(n, m);
 	ma.init(2);
 	
 	Matrix m2 = ma;

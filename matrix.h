@@ -8,7 +8,7 @@ class Matrix
 public:
 
 	// Contructors & destructor
-    Matrix(int n, int m, int thread);
+    Matrix(int n, int m);
     Matrix(const Matrix& matrix);
     ~Matrix();
 
@@ -26,5 +26,4 @@ private:
     int ** values;
 	int n;
 	int m;
-	int thread;
 };
