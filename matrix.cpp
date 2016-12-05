@@ -10,7 +10,7 @@ Matrix::Matrix(int n, int m, int thread)
 	omp_set_num_threads(this->thread);
 	
 	this->values = new int*[n];
-	#pragma omp parallel for
+	#pragma omp parallel for num_threads(this->thread) num_threads(this->thread)
 	for(int i = 0; i<n ;i++)
 	{
 		this->values[i] = new int[m];
@@ -24,14 +24,14 @@ Matrix::Matrix(const Matrix& matrix)
 	this->n = matrix.n;
 	this->m = matrix.m;
 	this->values = new int*[this->n];
-	#pragma omp parallel for
+	#pragma omp parallel for num_threads(this->thread)
 	for(int i = 0; i<this->n ;i++)
 	{
 		this->values[i] = new int[this->m];
 	}
 	#pragma omp barrier
 	
-	#pragma omp parallel for
+	#pragma omp parallel for num_threads(this->thread)
 	for(int i = 0; i<this->n ;i++)
     {
 		for(int j = 0;j < this->m; j++)
@@ -44,7 +44,7 @@ Matrix::Matrix(const Matrix& matrix)
 
 Matrix::~Matrix()
 {
-	#pragma omp parallel for
+	#pragma omp parallel for num_threads(this->thread)
 	for(int i = 0; i<n; i++)
 	{
 		delete[] this->values[i];
@@ -57,7 +57,7 @@ Matrix::~Matrix()
 // USEFUL METHODS
 void Matrix::init(int val)
 {
-	#pragma omp parallel for
+	#pragma omp parallel for num_threads(this->thread)
 	for(int i = 0; i<this->n; i++)
     {
 		for(int j = 0; j<this->m; j++)
@@ -71,7 +71,7 @@ void Matrix::init(int val)
 unsigned long long int Matrix::sum()
 {
 	unsigned long long int sum = 0;
-	#pragma omp parallel for
+	#pragma omp parallel for num_threads(this->thread)
 	for(int i = 0; i<this->n ;i++)
     {
 		for(int j = 0;j<this->m; j++)
@@ -103,7 +103,7 @@ Matrix Matrix::operator+(const Matrix& matrix)
 {
     Matrix m3 = *this;
     
-    #pragma omp parallel for
+    #pragma omp parallel for num_threads(this->thread)
     for(int i = 0; i<this->n ;i++)
     {
 		for(int j = 0;j<this->m; j++)
@@ -120,7 +120,7 @@ Matrix Matrix::operator*(const Matrix& matrix)
     Matrix m3 = *this;
     m3.init(0);
     
-    #pragma omp parallel for
+    #pragma omp parallel for num_threads(this->thread)
     for (int i=0;i<this->n;i++)
 	{
 		for (int j=0;j<matrix.m;j++)
@@ -140,7 +140,7 @@ Matrix operator*(const Matrix& matrix, int product)
 {
     Matrix m3 = matrix;
     
-    #pragma omp parallel for
+    #pragma omp parallel for num_threads(this->thread)
     for(int i = 0; i<m3.n ;i++)
     {
 		for(int j = 0;j<m3.m; j++)
