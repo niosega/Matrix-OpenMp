@@ -71,7 +71,7 @@ void Matrix::init(int val)
 unsigned long long int Matrix::sum()
 {
 	unsigned long long int sum = 0;
-	#pragma omp parallel for num_threads(this->thread)
+#pragma omp parallel for num_threads(this->thread) reduction(+:sum)
 	for(int i = 0; i<this->n ;i++)
     {
 		for(int j = 0;j<this->m; j++)
