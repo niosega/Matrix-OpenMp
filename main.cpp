@@ -3,11 +3,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "omp.h"
-#include "testbench.h"
+#include "timer.h"
+//~ #include "testbench.h"
 
 using namespace std;
 
-int thread = 1;
+int thread = 4;
 
 int main(int argc, char* argv[])
 {
@@ -39,10 +40,24 @@ int main(int argc, char* argv[])
 	//~ }
 	//~ cout << sum << endl;
 	
-	int iter = atoi(argv[1]);
-	int matrix_size = atoi(argv[2]);
-	TestBench tb(iter, matrix_size);
-	tb.print_result();
-	tb.print_csv();
+	// int iter = atoi(argv[1]);
+	// int matrix_size = atoi(argv[2]);
+	// TestBench tb(iter, matrix_size);
+	// tb.print_result();
+	// tb.print_csv();
+	
+	omp_set_num_threads(thread);
+	cout << "Number of threads : "<< thread << endl;
+	Matrix ma(1000, 1000);
+	ma.init(2);
+	
+	Matrix m2 = ma;
+	m2.init(4);
+	
+	Timer t;
+	t.start();
+	Matrix m4 = ((ma*m2)*2+ma);
+	t.stop();
+	cout << t.time() << endl;
 	return 0;
 }
